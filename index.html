@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chipsy the Fox</title>
+    <style>
+        body {
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Chipsy the Fox</h1>
+    <canvas id="gameCanvas" width="500" height="500"></canvas>
+    <p id="score">Score: 0</p>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        let score = 0;
+
+        // Простой элемент для рисования Чипси (например, изображение)
+        const fox = {
+            x: 200,
+            y: 200,
+            width: 50,
+            height: 50,
+            color: 'orange',
+        };
+
+        // Рисуем Чипси
+        function drawFox() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Очищаем холст
+            ctx.fillStyle = fox.color;
+            ctx.fillRect(fox.x, fox.y, fox.width, fox.height);
+        }
+
+        // Увеличение счета
+        function increaseScore() {
+            score++;
+            document.getElementById("score").innerText = `Score: ${score}`;
+        }
+
+        // Обработчик событий для кормления
+        canvas.addEventListener('click', function (e) {
+            const mouseX = e.offsetX;
+            const mouseY = e.offsetY;
+            
+            // Проверка попадания в Чипси
+            if (mouseX >= fox.x && mouseX <= fox.x + fox.width && mouseY >= fox.y && mouseY <= fox.y + fox.height) {
+                increaseScore();
+                alert('Chipsy is happy! You fed him!');
+            }
+        });
+
+        // Начинаем рисовать Чипси
+        drawFox();
+    </script>
+</body>
+</html>
